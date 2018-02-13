@@ -28,7 +28,7 @@ button:hover {
 }
 
 button:active {
-  top: 1px;
+  top: 5px;
 }
 
 #controls {
@@ -50,14 +50,29 @@ button:active {
 }
 
 .box {
-  border: 1px solid red;
+  border-top: 1px solid rgb(114, 114, 114);
+  border-left: 1px solid rgb(114, 114, 114);
+}
+
+#container div :last-child {
+  border-right: 1px solid rgb(114, 114, 114);
+}
+
+#container :last-child div {
+  border-bottom: 1px solid rgb(114, 114, 114);
 }
 
 .box:hover {
   background-color: rgba(199, 199, 199, 1);
 }
 
+.green {
+  background-color: rgba(129, 189, 154, 0.5);
+}
 
+.red {
+  background-color: rgba(172, 138, 154, 0.5);
+}
 
 
 
