@@ -1,0 +1,66 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+#help {
+  text-align: center;
+  font-size: 20px;
+}
+
+#help p {
+    margin: 5px 5px 0 5px;
+}
+
+button {
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  position: relative;
+  margin: 5px 10px;
+  line-height: 20px;
+  transition: all .2s;
+}
+
+button:hover {
+  background-color: #ccc;
+}
+
+button:active {
+  top: 1px;
+}
+
+#controls {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#container {
+  margin: 0 auto;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#container > div {
+ display: flex; 
+}
+
+.box {
+  border: 1px solid red;
+}
+
+.box:hover {
+  background-color: rgba(199, 199, 199, 1);
+}
+
+
+
+
+
+
+
+
