@@ -44,15 +44,11 @@ Grid.leftClick = false;
 // returns array of parent divs
 Grid.prototype.CreateParentRows = function()
 {
-  // var parentArray = [];
   var element;
   for(var i = 0; i < this.rows; i++)
   {
     element = document.createElement("div");
     element.className = "row" + i;
-    var decimalColor = Math.floor(Math.random()*Math.pow(256, 3));
-    var color = "#" + decimalColor.toString(16);
-    element.style.backgroundColor = color;
     this.grid.push(element);
   }
   
@@ -177,9 +173,8 @@ function AddBtnEvents(grid) {
     {
       var usrInput = prompt("Enter number of rows and Cols (eg. 10,20)")
         .split(",");
-        var rows = usrInput[0].trim();
-        var cols = usrInput[1].trim();
-      // debugger        
+      var rows = usrInput[0].trim();
+      var cols = usrInput[1].trim();
       grid.NewGrid(rows, cols)
     }
     else if(target.id === "reset_btn")
@@ -189,33 +184,47 @@ function AddBtnEvents(grid) {
   }
 }
 
-// function start()
-// {
-//   var count = false;
-//   var colorInput = document.querySelector("[type=color]");
-//   var color;
+function RandomColor(sketch) {
+  return function(){
+    var row = Math.floor(Math.random() * sketch.rows);
+    var col = Math.floor(Math.random() * sketch.cols);
+    var element = sketch.container.getElementsByClassName(row+","+col)[0];
+    var decimalColor = Math.floor(Math.random() * Math.pow(256, 3));
+    var color = "#" + decimalColor.toString(16);
+    element.style.backgroundColor = color;
+    // setTimeout(function(){sketch.Reset()}, 800);
+  }
+}
 
-//   colorInput.addEventListener("click", function (ev) {
-//     color = ev.target.value;
-//     console.log(color)
-//   });
+function DiscoTime(sketch) 
+{
+  var magic = false;
+  var timerID = resetTimerID = null;
+  var RandomizeCellColor = null;
+  var discoBtn = document.getElementById("magic");
+  return function () {
+    if(!magic)
+    {
+      RandomizeCellColor = RandomColor(sketch);
+      timerID = setInterval(RandomizeCellColor, 0);
+      resetTimerID = setInterval(function(){sketch.Reset()}, 800);
+      magic = true;
+      discoBtn.classList.add("red");
+    } 
+    else
+    {
+      magic = false;  
+      clearInterval(timerID);
+      clearInterval(resetTimerID);
+      discoBtn.classList.remove("red");
+    }
+  }
+}
 
-//   return function () {
-//     if(!count) count = true;
-//     else return;
-//     var sketch = new Grid(50, 50, 600, 600);
-//     sketch.CreateGrid();
-//     sketch.AddEventListener()
-//   }
-// }
-
-
-
-// document.addEventListener("DOMContentLoaded", start())
 
 window.onload = function()
 {
-  var count = false;
+  var magic = false;
   Grid.colorPicker = document.querySelector("[type=color]");
   document.addEventListener("contextmenu", function(ev) {
      ev.preventDefault(); 
@@ -225,5 +234,8 @@ window.onload = function()
   sketch.CreateGrid();
   sketch.AddEventListener()
   controls.addEventListener("click", AddBtnEvents(sketch));
+
+  var magic = document.getElementById("magic");
+  magic.addEventListener("click", DiscoTime(sketch));
 
 };
