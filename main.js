@@ -114,7 +114,8 @@ Grid.prototype.AddEventListener = function()
     {
       Grid.drag = true;
       Grid.rightClick = true;
-      target.style.backgroundColor = "#fff";      
+      // target.style.backgroundColor = "#fff";
+      target.style.removeProperty("background-color");
     }
 
   })
@@ -127,7 +128,9 @@ Grid.prototype.AddEventListener = function()
       target.style.backgroundColor = Grid.colorPicker.value;
     else if(targetClasses.contains("box") && Grid.drag && Grid.rightClick)
     {
-      target.style.backgroundColor = "#fff";      
+      // target.style.backgroundColor = "#fff";      
+      target.style.removeProperty("background-color");
+      
     }  
   })
 
@@ -155,10 +158,10 @@ Grid.prototype.Reset = function () {
     var nodes = element.getElementsByClassName("box");
 
     Array.prototype.forEach.call(nodes, function (node) {
-      node.style.backgroundColor = "#fff";
+      node.style.removeProperty("background-color");
+      // node.style.backgroundColor = "#fff";
     })
 
-    // element.style.backgroundColor = "#fff";
   }
 }
 
